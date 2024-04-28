@@ -1,0 +1,12 @@
+[package]
+name = "cpu_models"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+graph = { path = "../graph"}
+indicatif = {version="0.17.0", features = ["rayon"]}
+num-traits = {git="https://github.com/zommiommy/num-traits.git", features=["atomic_from_mut"]}
+rayon = "1.1"
+vec_rand = { git = "https://github.com/zommiommy/vec_rand", branch = "master" }
+express_measures = {path = "./express_measures"}

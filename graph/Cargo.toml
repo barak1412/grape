@@ -1,0 +1,22 @@
+[package]
+name = "graph"
+version = "0.1.0"
+edition = "2018"
+
+[lib]
+name = "graph"
+
+[dependencies]
+itertools = "0.10.0"
+bitvec = {version="1.0.1", features=["atomic"]}
+elias_fano_rust = "0.1.1"
+rayon = "1.6"
+csr = {path = "../csr"}
+atomic_float = "0.1.0"
+log = "0.4.8"
+tags = {path="../tags"}
+indicatif = {version="0.16.0", features = ["rayon"]}
+vec_rand = { git = "https://github.com/zommiommy/vec_rand", branch = "master" }
+parallel_frontier = {git="https://github.com/zommiommy/parallel_frontier"}
+num-traits = "0.2.14"
+iter-set = "2.0.1"
