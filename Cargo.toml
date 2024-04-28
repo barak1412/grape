@@ -1,0 +1,11 @@
+[package]
+name = "grape"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "grape"
+
+[dependencies]
+graph = {path = "./graph"}
+cpu_models = {path = "./cpu_models"}
