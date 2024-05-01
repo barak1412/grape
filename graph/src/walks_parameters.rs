@@ -10,28 +10,28 @@ use vec_rand::splitmix64;
 #[no_binding]
 pub struct WalkWeights {
     pub return_weight: ParamsT,
-    pub(crate) explore_weight: ParamsT,
-    pub(crate) change_node_type_weight: ParamsT,
-    pub(crate) change_edge_type_weight: ParamsT,
+    pub explore_weight: ParamsT,
+    pub change_node_type_weight: ParamsT,
+    pub change_edge_type_weight: ParamsT,
 }
 
 #[derive(Clone, Debug, PartialEq)]
 /// Struct to wrap parameters relative to a single walk.
 #[no_binding]
 pub struct SingleWalkParameters {
-    pub(crate) walk_length: u64,
-    pub(crate) weights: WalkWeights,
-    pub(crate) max_neighbours: Option<NodeT>,
-    pub(crate) normalize_by_degree: bool,
+    pub walk_length: u64,
+    pub weights: WalkWeights,
+    pub max_neighbours: Option<NodeT>,
+    pub normalize_by_degree: bool,
 }
 
 #[derive(Clone, Debug, PartialEq)]
 /// Struct to wrap parameters relative to a set of walks.
 #[no_binding]
 pub struct WalksParameters {
-    pub(crate) single_walk_parameters: SingleWalkParameters,
-    pub(crate) iterations: NodeT,
-    pub(crate) random_state: NodeT,
+    pub single_walk_parameters: SingleWalkParameters,
+    pub iterations: NodeT,
+    pub random_state: NodeT,
 }
 
 impl Default for WalkWeights {
