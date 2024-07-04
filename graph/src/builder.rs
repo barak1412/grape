@@ -5,9 +5,24 @@ use super::utils::*;
 use super::types::*;
 use rayon::iter::Empty as ParEmpty;
 use std::iter::Empty as SeqEmpty;
-use std::collections::{BTreeSet, BTreeMap};
+use std::collections::{BTreeSet, BTreeMap, HashSet};
 use std::io::{BufWriter, Write};
 use std::fs::File;
+
+
+#[derive(Clone, Debug, Hash)]
+pub struct SimpleEdge{
+    pub src: String,
+    pub dst: String,
+}
+
+impl PartialEq for SimpleEdge {
+    fn eq(&self, other: &Self) -> bool {
+        (self.src == other.src) && (self.dst == other.dst)
+    }
+}
+
+impl Eq for SimpleEdge {}
 
 #[derive(Clone, Debug)]
 pub struct Edge{
@@ -47,6 +62,7 @@ impl Ord for Edge {
 
 #[derive(Clone, Debug)]
 pub struct GraphBuilder {
+    simple_edges: HashSet<SimpleEdge>,
     pub(crate) edges: BTreeSet<Edge>,
     pub(crate) nodes: BTreeMap<String, Option<Vec<String>>>,
 
@@ -93,6 +109,7 @@ impl GraphBuilder {
 
             nodes: BTreeMap::new(),
             edges: BTreeSet::new(),
+            simple_edges: HashSet::new(),
 
             default_weight: 1.0,
         }
@@ -145,6 +162,19 @@ impl GraphBuilder {
         if edge_type.is_some() {
             self.has_edge_types = true;
         }
+
+        // check for already existing edge
+        let new_simple_edge = SimpleEdge{src: src.clone(), dst: dst.clone()};
+        if self.simple_edges.contains(&new_simple_edge) {
+            return Ok(())
+        }
+        if !self.directed{
+            let oposite_new_simple_edge = SimpleEdge{src: dst.clone(), dst: src.clone()};
+            if self.simple_edges.contains(&oposite_new_simple_edge) {
+                return Ok(())
+            }
+        }
+        self.simple_edges.insert(new_simple_edge);
         self.edges.insert(Edge{src, dst, edge_type, weight});
         Ok(())
     }
